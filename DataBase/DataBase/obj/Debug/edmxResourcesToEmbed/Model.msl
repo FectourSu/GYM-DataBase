@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="DatabaseEntities">
+    <EntitySetMapping Name="Качалка">
+      <EntityTypeMapping TypeName="Database1Model.Качалка">
+        <MappingFragment StoreEntitySet="Качалка">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Секция" ColumnName="Секция" />
+          <ScalarProperty Name="График" ColumnName="График" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Спортзал">
+      <EntityTypeMapping TypeName="Database1Model.Спортзал">
+        <MappingFragment StoreEntitySet="Спортзал">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Секция" ColumnName="Секция" />
+          <ScalarProperty Name="График" ColumnName="График" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Студенты">
+      <EntityTypeMapping TypeName="Database1Model.Студенты">
+        <MappingFragment StoreEntitySet="Студенты">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Имя" ColumnName="Имя" />
+          <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+          <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+          <ScalarProperty Name="КачалкаID" ColumnName="КачалкаID" />
+          <ScalarProperty Name="СпортзалID" ColumnName="СпортзалID" />
+          <ScalarProperty Name="Время_записи" ColumnName="Время записи" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

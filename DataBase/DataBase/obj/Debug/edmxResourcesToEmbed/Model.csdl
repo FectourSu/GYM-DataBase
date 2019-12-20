@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Качалка">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Секция" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="График" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Студенты" Relationship="Self.StudientKey" FromRole="Качалка" ToRole="Студенты" />
+  </EntityType>
+  <EntityType Name="Спортзал">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Секция" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="График" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Студенты" Relationship="Self.StudientKey2" FromRole="Спортзал" ToRole="Студенты" />
+  </EntityType>
+  <EntityType Name="Студенты">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Имя" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Фамилия" Type="String" MaxLength="24" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Отчество" Type="String" MaxLength="24" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="КачалкаID" Type="Int32" Nullable="false" />
+    <Property Name="СпортзалID" Type="Int32" Nullable="false" />
+    <Property Name="Время_записи" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Качалка" Relationship="Self.StudientKey" FromRole="Студенты" ToRole="Качалка" />
+    <NavigationProperty Name="Спортзал" Relationship="Self.StudientKey2" FromRole="Студенты" ToRole="Спортзал" />
+  </EntityType>
+  <Association Name="StudientKey">
+    <End Role="Качалка" Type="Self.Качалка" Multiplicity="1" />
+    <End Role="Студенты" Type="Self.Студенты" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Качалка">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Студенты">
+        <PropertyRef Name="КачалкаID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudientKey2">
+    <End Role="Спортзал" Type="Self.Спортзал" Multiplicity="1" />
+    <End Role="Студенты" Type="Self.Студенты" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Спортзал">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Студенты">
+        <PropertyRef Name="СпортзалID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Качалка" EntityType="Self.Качалка" />
+    <EntitySet Name="Спортзал" EntityType="Self.Спортзал" />
+    <EntitySet Name="Студенты" EntityType="Self.Студенты" />
+    <AssociationSet Name="StudientKey" Association="Self.StudientKey">
+      <End Role="Качалка" EntitySet="Качалка" />
+      <End Role="Студенты" EntitySet="Студенты" />
+    </AssociationSet>
+    <AssociationSet Name="StudientKey2" Association="Self.StudientKey2">
+      <End Role="Спортзал" EntitySet="Спортзал" />
+      <End Role="Студенты" EntitySet="Студенты" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

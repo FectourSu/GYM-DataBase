@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Database1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Качалка">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Секция" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="График" Type="nvarchar" MaxLength="14" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Спортзал">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Секция" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="График" Type="nvarchar" MaxLength="14" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Студенты">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Имя" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Фамилия" Type="nvarchar" MaxLength="24" Nullable="false" />
+          <Property Name="Отчество" Type="nvarchar" MaxLength="24" Nullable="false" />
+          <Property Name="КачалкаID" Type="int" Nullable="false" />
+          <Property Name="СпортзалID" Type="int" Nullable="false" />
+          <Property Name="Время записи" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="StudientKey">
+          <End Role="Качалка" Type="Self.Качалка" Multiplicity="1" />
+          <End Role="Студенты" Type="Self.Студенты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Качалка">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Студенты">
+              <PropertyRef Name="КачалкаID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StudientKey2">
+          <End Role="Спортзал" Type="Self.Спортзал" Multiplicity="1" />
+          <End Role="Студенты" Type="Self.Студенты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Спортзал">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Студенты">
+              <PropertyRef Name="СпортзалID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Database1ModelContainer">
+          <EntitySet Name="Качалка" EntityType="Self.Качалка" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Спортзал" EntityType="Self.Спортзал" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Студенты" EntityType="Self.Студенты" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="StudientKey" Association="Self.StudientKey">
+            <End Role="Качалка" EntitySet="Качалка" />
+            <End Role="Студенты" EntitySet="Студенты" />
+          </AssociationSet>
+          <AssociationSet Name="StudientKey2" Association="Self.StudientKey2">
+            <End Role="Спортзал" EntitySet="Спортзал" />
+            <End Role="Студенты" EntitySet="Студенты" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Качалка">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Секция" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="График" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Студенты" Relationship="Self.StudientKey" FromRole="Качалка" ToRole="Студенты" />
+        </EntityType>
+        <EntityType Name="Спортзал">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Секция" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="График" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Студенты" Relationship="Self.StudientKey2" FromRole="Спортзал" ToRole="Студенты" />
+        </EntityType>
+        <EntityType Name="Студенты">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Имя" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Фамилия" Type="String" MaxLength="24" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Отчество" Type="String" MaxLength="24" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="КачалкаID" Type="Int32" Nullable="false" />
+          <Property Name="СпортзалID" Type="Int32" Nullable="false" />
+          <Property Name="Время_записи" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Качалка" Relationship="Self.StudientKey" FromRole="Студенты" ToRole="Качалка" />
+          <NavigationProperty Name="Спортзал" Relationship="Self.StudientKey2" FromRole="Студенты" ToRole="Спортзал" />
+        </EntityType>
+        <Association Name="StudientKey">
+          <End Role="Качалка" Type="Self.Качалка" Multiplicity="1" />
+          <End Role="Студенты" Type="Self.Студенты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Качалка">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Студенты">
+              <PropertyRef Name="КачалкаID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StudientKey2">
+          <End Role="Спортзал" Type="Self.Спортзал" Multiplicity="1" />
+          <End Role="Студенты" Type="Self.Студенты" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Спортзал">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Студенты">
+              <PropertyRef Name="СпортзалID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Качалка" EntityType="Self.Качалка" />
+          <EntitySet Name="Спортзал" EntityType="Self.Спортзал" />
+          <EntitySet Name="Студенты" EntityType="Self.Студенты" />
+          <AssociationSet Name="StudientKey" Association="Self.StudientKey">
+            <End Role="Качалка" EntitySet="Качалка" />
+            <End Role="Студенты" EntitySet="Студенты" />
+          </AssociationSet>
+          <AssociationSet Name="StudientKey2" Association="Self.StudientKey2">
+            <End Role="Спортзал" EntitySet="Спортзал" />
+            <End Role="Студенты" EntitySet="Студенты" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="Качалка">
+            <EntityTypeMapping TypeName="Database1Model.Качалка">
+              <MappingFragment StoreEntitySet="Качалка">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Секция" ColumnName="Секция" />
+                <ScalarProperty Name="График" ColumnName="График" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Спортзал">
+            <EntityTypeMapping TypeName="Database1Model.Спортзал">
+              <MappingFragment StoreEntitySet="Спортзал">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Секция" ColumnName="Секция" />
+                <ScalarProperty Name="График" ColumnName="График" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Студенты">
+            <EntityTypeMapping TypeName="Database1Model.Студенты">
+              <MappingFragment StoreEntitySet="Студенты">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="КачалкаID" ColumnName="КачалкаID" />
+                <ScalarProperty Name="СпортзалID" ColumnName="СпортзалID" />
+                <ScalarProperty Name="Время_записи" ColumnName="Время записи" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
